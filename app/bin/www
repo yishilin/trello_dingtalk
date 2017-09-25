@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+process.env.TZ = 'Asia/Shanghai' 
+
+var TrelloWebhookServer = require("../trello/trelloWebhookServer.js")
+var server = new TrelloWebhookServer();
+server.init().start_http_server(); 
