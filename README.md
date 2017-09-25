@@ -27,7 +27,7 @@ First please copy the `config.example.js` to `config.js`, then set up the config
 
 - TRELLO_WEBHOOK_URL: Trello will post notification data to this URL, for instance, http://www.example.com/your_trello_callback_url, the request will hit your server
 - PORT: Webhook server will listen on this port, request of TRELLO_WEBHOOK_URL will hit this port (there could be NAT port mapping between them)
-- TRELLO_API_KEY: <trello API key>
+- TRELLO_API_KEY: <trello API key>, see https://help.datadoghq.com/hc/en-us/articles/115002882826-Use-our-Webhook-Integration-to-create-a-trello-card
 - TRELLO_API_TOKEN: <trello API token>
 - TRELLO_CLIENT_SECRET: <trello client secret>
 - MODELID_SUBSCRIPTIONS: a Hash object, the key is the <trello board ID which you want to watch>, the value is an array of Dingtalk group tokens, with the token you could send the message to the Dingtalk group.
@@ -38,10 +38,8 @@ In the `config.example.js`, you have two Trello boards which you want to watch, 
 
 Run `docker-compose build`. It will
 
-* install [nodemon](https://github.com/remy/nodemon) globally in your container
 * install all dependencies from the package.json locally
-* expose port 3000 to the host
-* instruct the container to execute `npm start` on start up.
+* expose port 3000 to the host (depends on your config.js)
 
 ## Step 4: Start
 
