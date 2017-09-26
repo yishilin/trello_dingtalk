@@ -1,8 +1,8 @@
 function Handler(action, view_root, dingtalk_tokens) {
+    this.translationKey = filter(action);
     this.view_root = view_root;
     this.action = action;
     this.dingtalk_tokens = dingtalk_tokens;
-    this.translationKey = filter(action);
     
     this.handle = function() {
         let fs = require('fs');
@@ -51,26 +51,34 @@ function Handler(action, view_root, dingtalk_tokens) {
         d = new Date(action.date);
         action.date = (new Date(d.toISOString())).toLocaleString();
 
-        if ('action_added_a_due_date' == action.display.translationKey) {
-            d = new Date(action.data.card.due);
-            action.data.card.due = d.toISOString().slice(0,10);
-        } 
+        switch (action.display.translationKey) {
+            case 'action_added_a_due_date':
+                d = new Date(action.data.card.due);
+                action.data.card.due = d.toISOString().slice(0,10);
+                break;
 
-        if ('action_changed_a_due_date' == action.display.translationKey) {
-            d = new Date(action.data.card.due);
-            action.data.card.due = d.toISOString().slice(0,10);
+            case 'action_changed_a_due_date':
+                d = new Date(action.data.card.due);
+                action.data.card.due = d.toISOString().slice(0,10);
 
-            d = new Date(action.data.old.due);
-            action.data.old.due = d.toISOString().slice(0,10);
+                d = new Date(action.data.old.due);
+                action.data.old.due = d.toISOString().slice(0,10);
+                break;
+
+            case 'action_removed_a_due_date':
+                d = new Date(action.data.old.due);
+                action.data.old.due = d.toISOString().slice(0,10);
+                break; 
+
+            case 'action_add_attachment_to_card':
+                if (action.data.attachment.previewUrl) {
+                    action.display.translationKey = "action_add_attachment_to_card_image"
+                } else {
+                    action.display.translationKey = "action_add_attachment_to_card_file"
+                }
+                break; 
         }
 
-        if ('action_add_attachment_to_card' == action.display.translationKey) {
-            if (action.data.attachment.previewUrl) {
-                return "action_add_attachment_to_card_image"
-            } else {
-                return "action_add_attachment_to_card_file"
-            }
-        }
         return action.display.translationKey;
     }
 }

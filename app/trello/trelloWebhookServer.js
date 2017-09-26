@@ -40,7 +40,8 @@ function TrelloWebhookServer () {
                     trelloWHServer.on('data', event => {
                          //dump(event.action);
                         let handler = new Handler(event.action, process.AppConfig.PROJECT_ROOT + "app/views/", 
-                            process.AppConfig.MODELID_SUBSCRIPTIONS[trello_model_id]); handler.handle();
+                            process.AppConfig.MODELID_SUBSCRIPTIONS[trello_model_id]); 
+                        handler.handle();
                     });
                 }).catch(e => {
                     console.log('Error getting Trello webhook');

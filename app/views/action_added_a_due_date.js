@@ -61,7 +61,7 @@ module.exports =
 {
     "msgtype": "markdown",
      "markdown": {
-         "title":"{action.memberCreator.fullName}} 设置截止日期",
+         "title":"{{action.memberCreator.fullName}} 设置截止日期",
          "text": "#### {{action.memberCreator.fullName}} ({{action.memberCreator.username}}) 给卡片 [#{{action.data.card.idShort}} {{action.data.card.name}}](https://trello.com/c/{{action.data.card.shortLink}}) 设置截止日期:\n" +
                  "> 截止日期：{{action.data.card.due}}\n\n" +
                  "> ###### {{action.date}} \n"
