@@ -15,7 +15,7 @@ let action = {
             shortLink: 'Lc5n3U4v',
             idShort: 1,
             name: 'we need to support the wechat login our system',
-            id: '59ba223e702cf184fe0a2571'
+            id: '59b5facfbe92ea7993c6039c'
         },
         text: '测试一下'
     },

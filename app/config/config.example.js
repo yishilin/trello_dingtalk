@@ -9,7 +9,8 @@ var config = {
     TRELLO_API_KEY: '7f4gc7f8e29ebbme61z7c489176uuuuu',
     TRELLO_API_TOKEN: '3dac5b40149c693e09df409414f92e849be293f193a05905998cb96bd9cuuuuu',
     TRELLO_CLIENT_SECRET: '8868caa82839f1335e5efcd21fdc2c03675dfaca353d42ed26f8573uuuuuuuuu',
-    MODELID_SUBSCRIPTIONS: { }
+    MODELID_SUBSCRIPTIONS: { },
+    TRELLOID_MAP_DINGTALKID: {}
 };
 process.AppConfig = config;
 var subscriptions = config.MODELID_SUBSCRIPTIONS;
@@ -23,3 +24,17 @@ subscriptions[TRELLO_BOARDID_ITWORK] = [DDGroup_Token_LOVE, DDGroup_Token_PROJEC
 subscriptions[TRELLO_BOARDID_TEST] = [DDGroup_Token_LOVE, DDGroup_Token_PROJECT];
 
 
+
+// maping trello user id to dingtalk user id
+config.TRELLOID_MAP_DINGTALKID = {
+    'needfaster': "13301139421",
+    'iproduct1': "13301183891", 
+    'liumuchun': "18910563740",
+    'mull4': "18910563723",
+    "zhangcyf1": '15030285641',
+    'zhaomm1': '18910362544',
+    'zhangyfk': "18603423612",
+    'sean20092871':  "15803150718",
+    'kegang1': "18910532319", 
+    'liangliang9': "18653959890" 
+}
