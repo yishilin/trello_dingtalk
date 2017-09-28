@@ -6,6 +6,7 @@ function send2dingtalk(data, dingtalk_tokens) {
 }
 
 function send(data, dingtalk_token){
+    //console.log(data);
     var str = new Buffer(JSON.stringify(data));
     
     var headers = {

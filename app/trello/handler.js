@@ -10,7 +10,8 @@ function arrayUnique(array) {
 }
 
 
-function get_card_member_phones(card_id, at_trellonames, dingtalk_tokens, send_dingtalk_message){
+function get_card_member_phones(action_memberCreator_username, card_id, at_trellonames, 
+        dingtalk_tokens, send_dingtalk_message){
     try {
         var members = null;
         var trelloIds = process.AppConfig.TRELLOID_MAP_DINGTALKID; 
@@ -20,11 +21,13 @@ function get_card_member_phones(card_id, at_trellonames, dingtalk_tokens, send_d
          
         t.get("/1/cards/" + card_id + "/members", function(err, members) {
             if (err) throw err;
-            members = members.map(function(x) { return x['username']; });
-            
-            all_names = arrayUnique(members.concat(at_trellonames));
+            members = members.map(function(x) { return x['username']; }); 
+            let all_names = arrayUnique(members.concat(at_trellonames));
 
-            mobiles = members.filter(function(x){return trelloIds.hasOwnProperty(x); }).
+            //remove the member who created the action
+            let final_names = all_names.filter(function(x){ return x != action_memberCreator_username});
+
+            let mobiles = final_names.filter(function(x){return trelloIds.hasOwnProperty(x); }).
                 map(function(x) { return trelloIds[x];}); 
             mobiles = arrayUnique(mobiles);
 
@@ -86,7 +89,7 @@ function Handler(action, view_root, dingtalk_tokens) {
                 let dingMsgJson = JSON.parse(msg_str);
                 let at_trellonames = get_at_trellonames_in_comments(this.action);
 
-                get_card_member_phones(this.action.data.card.id, at_trellonames, this.dingtalk_tokens, 
+                get_card_member_phones(this.action.memberCreator.username, this.action.data.card.id, at_trellonames, this.dingtalk_tokens, 
                         function send_dingtalk_message(mobiles, dingtalk_tokens) {
                     process_at(dingMsgJson, mobiles); 
                     let send2dingtalk = require('./sender.js');
