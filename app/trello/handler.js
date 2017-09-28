@@ -17,7 +17,21 @@ function Handler(action, view_root, dingtalk_tokens) {
     this.action = action;
     this.dingtalk_tokens = dingtalk_tokens;
 
-    function process_msg_for_at(dingMsgJson, mobiles) { 
+
+    function process_msg_for_at(dingMsgJson, trelloIds, action, members) {
+        let at_trellonames = get_at_trellonames_in_comments(action); 
+        let all_names = arrayUnique(members.concat(at_trellonames));
+        let action_memberCreator_username = action.memberCreator.username;
+    
+        //remove the member who created the action
+        let final_names = all_names.filter(function(x){ return x != action_memberCreator_username});
+
+        //remove the member who did not have the phone mapped in dingtalk
+        let mobiles = final_names.filter(function(x){return trelloIds.hasOwnProperty(x); }).
+            map(function(x) { return trelloIds[x];}); 
+
+        mobiles = arrayUnique(mobiles);
+
         let at = {
             "atMobiles": mobiles, 
             "isAtAll": false
@@ -77,23 +91,12 @@ function Handler(action, view_root, dingtalk_tokens) {
 
                 //first call trello api get the members of the card, then map it to dingtalk phone
                 //then send message to tinktalk phone
-                let action_memberCreator_username = this.action.memberCreator.username;
                 let dingtalk_tokens = this.dingtalk_tokens; 
                 let action = this.action;
                 var trelloIds = process.AppConfig.TRELLOID_MAP_DINGTALKID; 
 
                 get_card_member_phones(this.action.data.card.id).then(function (members) { 
-                    let at_trellonames = get_at_trellonames_in_comments(action); 
-                    let all_names = arrayUnique(members.concat(at_trellonames));
-    
-                    //remove the member who created the action
-                    let final_names = all_names.filter(function(x){ return x != action_memberCreator_username});
-                    let mobiles = final_names.filter(function(x){return trelloIds.hasOwnProperty(x); }).
-                        map(function(x) { return trelloIds[x];}); 
-                    mobiles = arrayUnique(mobiles);
-    
-                    process_msg_for_at(dingMsgJson, mobiles); 
-
+                    process_msg_for_at(dingMsgJson, trelloIds, action, members); 
                     let send2dingtalk = require('./sender.js');
                     send2dingtalk(dingMsgJson, dingtalk_tokens);
                 });
