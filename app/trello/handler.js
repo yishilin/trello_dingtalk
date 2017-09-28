@@ -10,35 +10,6 @@ function arrayUnique(array) {
 }
 
 
-function get_card_member_phones(action_memberCreator_username, card_id, at_trellonames, 
-        dingtalk_tokens, send_dingtalk_message){
-    try {
-        var members = null;
-        var trelloIds = process.AppConfig.TRELLOID_MAP_DINGTALKID; 
-
-        var Trello = require("node-trello");
-        var t = new Trello(process.AppConfig.TRELLO_API_KEY, process.AppConfig.TRELLO_API_TOKEN);
-         
-        t.get("/1/cards/" + card_id + "/members", function(err, members) {
-            if (err) throw err;
-            members = members.map(function(x) { return x['username']; }); 
-            let all_names = arrayUnique(members.concat(at_trellonames));
-
-            //remove the member who created the action
-            let final_names = all_names.filter(function(x){ return x != action_memberCreator_username});
-
-            let mobiles = final_names.filter(function(x){return trelloIds.hasOwnProperty(x); }).
-                map(function(x) { return trelloIds[x];}); 
-            mobiles = arrayUnique(mobiles);
-
-            send_dingtalk_message(mobiles, dingtalk_tokens);
-        });
-
-    } catch(err) {
-        console.log(err); 
-    }
-}
-
 
 function Handler(action, view_root, dingtalk_tokens) {
     this.translationKey = filter(action);
@@ -58,6 +29,40 @@ function Handler(action, view_root, dingtalk_tokens) {
         markdown = dingMsgJson['markdown'];
         markdown['text'] = markdown['text'] + "\n\n" + at_text_tail; 
     }
+
+    function get_card_member_phones(handler, send_dingtalk_message){
+        let action_memberCreator_username = handler.action.memberCreator.username;
+        let card_id = handler.action.data.card.id;
+        let dingtalk_tokens = handler.dingtalk_tokens; 
+        let at_trellonames = get_at_trellonames_in_comments(handler.action); 
+    
+        try {
+            var members = null;
+            var trelloIds = process.AppConfig.TRELLOID_MAP_DINGTALKID; 
+    
+            var Trello = require("node-trello");
+            var t = new Trello(process.AppConfig.TRELLO_API_KEY, process.AppConfig.TRELLO_API_TOKEN);
+             
+            t.get("/1/cards/" + card_id + "/members", function(err, members) {
+                if (err) throw err;
+                members = members.map(function(x) { return x['username']; }); 
+                let all_names = arrayUnique(members.concat(at_trellonames));
+    
+                //remove the member who created the action
+                let final_names = all_names.filter(function(x){ return x != action_memberCreator_username});
+    
+                let mobiles = final_names.filter(function(x){return trelloIds.hasOwnProperty(x); }).
+                    map(function(x) { return trelloIds[x];}); 
+                mobiles = arrayUnique(mobiles);
+    
+                send_dingtalk_message(mobiles, dingtalk_tokens);
+            });
+    
+        } catch(err) {
+            console.log(err); 
+        }
+    }
+    
 
     function get_at_trellonames_in_comments(action) {
         if('action_comment_on_card' == action.display.translationKey)
@@ -87,10 +92,10 @@ function Handler(action, view_root, dingtalk_tokens) {
                 let render = require('json-templater/string');
                 let msg_str = render(jsonStr, {action: escapeJson(this.action)});
                 let dingMsgJson = JSON.parse(msg_str);
-                let at_trellonames = get_at_trellonames_in_comments(this.action);
 
-                get_card_member_phones(this.action.memberCreator.username, this.action.data.card.id, at_trellonames, this.dingtalk_tokens, 
-                        function send_dingtalk_message(mobiles, dingtalk_tokens) {
+                //first call trello api get the members of the card, then map it to dingtalk phone
+                //then send message to tinktalk phone
+                get_card_member_phones(this, function send_dingtalk_message(mobiles, dingtalk_tokens) {
                     process_at(dingMsgJson, mobiles); 
                     let send2dingtalk = require('./sender.js');
                     send2dingtalk(dingMsgJson, dingtalk_tokens);
