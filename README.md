@@ -1,6 +1,6 @@
 # Integrate DingTalk with Trello
 
-* Trello (https://trello.com) is a great task management online tools. 
+* Trello (https://trello.com) is a great task management online tool. 
 * DingTalk (https://www.dingtalk.com/) is a great enterprise IM platform which could have Talkbot(or Chatbot as you like) integrated.
 
 This project tries to integrate the two: You could watch multiple Trello boards you want when you receive the Trello notification you could send it to multiple DingTalk groups as you want according to the configuration.
@@ -21,7 +21,7 @@ Install [Docker Compose](http://docs.docker.com/compose/) on your system.
 
 see steps in https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&articleId=105735&docType=1 to add a customized  Talkbot, name it "Trello".
 
-## Step 2 : set up config.js file
+## Step 2: set up config.js file
 
 First please copy the `config.example.js` to `config.js`, then set up the configuration content correctly:
 
@@ -38,7 +38,7 @@ In the `config.example.js`, you have two Trello boards which you want to watch, 
 
 Run `docker-compose build`. It will
 
-* install all dependencies from the package.json locally
+* install all dependencies from the `package.json` locally
 * expose port 3000 to the host (depends on your config.js)
 
 ## Step 4: Start
