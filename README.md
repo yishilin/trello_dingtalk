@@ -46,3 +46,8 @@ Run `docker-compose build`. It will
 Run `docker-compose up` to create and start both `web` container.
 
 Run `node app/bin/www` to start the webhook server.
+
+## Run with forever
+RUN `cd /src && forever start -l ~/.forever/forever.log -e ~/.forever/err.log -a app/bin/www`
+
+`forever list`
