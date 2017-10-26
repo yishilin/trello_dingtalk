@@ -4,37 +4,45 @@
  */
 
 var config = {
-    TRELLO_WEBHOOK_URL: 'http://www.example.com/your_trello_callback_url',
+    TRELLO_WEBHOOK_URL: 'http://www.example.com:3030/trello_callback',
     PORT: 3000,
-    TRELLO_API_KEY: '7f4gc7f8e29ebbme61z7c489176uuuuu',
-    TRELLO_API_TOKEN: '3dac5b40149c693e09df409414f92e849be293f193a05905998cb96bd9cuuuuu',
-    TRELLO_CLIENT_SECRET: '8868caa82839f1335e5efcd21fdc2c03675dfaca353d42ed26f8573uuuuuuuuu',
+    TRELLO_API_KEY: '7f4f77uuuuuuuuuuu1b7c483176b13c6',
+    TRELLO_API_TOKEN: '3dac5b4014uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuf6bd4c271a4',
+    TRELLO_CLIENT_SECRET: '8868uuuuuuuuuuuuuuuuuuuuuudc2c03675dfaca353d42ed26f8573f78580b5f',
     MODELID_SUBSCRIPTIONS: { },
     TRELLOID_MAP_DINGTALKID: {}
 };
 process.AppConfig = config;
 var subscriptions = config.MODELID_SUBSCRIPTIONS;
 
-var DDGroup_Token_PROJECT = '69e6583bcbe5beulu74bu908u4cue92b5u5eau836uc4au3f9a79c8euuuuuuuuu';
-var DDGroup_Token_LOVE = '9427ucc2u49u9eau0e4uc1au26dud2u16du91eu21u55370u8ec75fuuuuuuuuuu';
-var TRELLO_BOARDID_ITWORK = '59b0bbe14eeae045e3uuuuuu';
-var TRELLO_BOARDID_TEST = '59ba2211902ef8694uuuuuuu';
 
-subscriptions[TRELLO_BOARDID_ITWORK] = [DDGroup_Token_LOVE, DDGroup_Token_PROJECT];
-subscriptions[TRELLO_BOARDID_TEST] = [DDGroup_Token_LOVE, DDGroup_Token_PROJECT];
-
-
-
-// maping trello user id to dingtalk user id
+// maping trello user id to dingtalk user id(mobile number)
 config.TRELLOID_MAP_DINGTALKID = {
-    'needfaster': "13301139421",
-    'iproduct1': "13301183891", 
-    'liumuchun': "18910563740",
-    'mull4': "18910563723",
-    "zhangcyf1": '15030285641',
-    'zhaomm1': '18910362544',
-    'zhangyfk': "18603423612",
-    'sean20092871':  "15803150718",
-    'kegang1': "18910532319", 
-    'liangliang9': "18653959890" 
+    'nuuuuaster': "13000000821",
+    'iuuuuuct1': "13300000022", 
+    'luuuuchun': "18900000060",
+    'muuuu': "18910000003",
+    "zuuuucyf1": '15000000641',
+    'zuuuum1': '18910000004',
+    'zuuuuyfk': "18600000012",
+    'suuuu0092871':  "15000000018",
+    'kuuuug1': "18000000719", 
+    'luuuuliang9': "18600000090" 
 }
+
+
+// Trello ITWORK Board --> Dingding Project Group (or others)
+var DDGroup_Token_PROJECT = '69e658uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu3f9a79c8ef6e80b342';
+var TRELLO_BOARDID_ITWORK = '59uuuuuuuuuuuuuuuuuuuuuu';
+subscriptions[TRELLO_BOARDID_ITWORK] = [DDGroup_Token_PROJECT];
+
+// Trello Test Board --> Dingding Test Group (or others)
+var DDGroup_Token_TEST = '94277cuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
+var TRELLO_BOARDID_TEST = '59ba2uuuuuuuuuuuuuuuuuuu';
+subscriptions[TRELLO_BOARDID_TEST] = [DDGroup_Token_TEST]; 
+
+// Trello OPS Board --> Dingding Board Group(or others)
+var TRELLO_BOARDID_OPS = '59f170uuuuuuuuuuuuuuuuuu'; 
+var DDGroup_Token_OPS = '6f32df8uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
+subscriptions[TRELLO_BOARDID_OPS] = [DDGroup_Token_OPS]; 
+
