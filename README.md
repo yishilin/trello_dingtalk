@@ -10,11 +10,8 @@ This project tries to integrate the two: You could watch multiple Trello boards 
 ## Screenshot
 Below are the screeshots in the DingTalk group:
 
-![Notification Message](resources/create_change_title.png) 
-![Notification Message](resources/due_move.png) 
-![Notification Message](resources/owner_comments.png) 
-![Notification Message](resources/attach_img.png) 
-![Notification Message](resources/attach_file.png) 
+![](resources/trello1.png) 
+![](resources/trello2.png)  
 
 ## Prerequisites
 
