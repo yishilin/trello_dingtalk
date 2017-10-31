@@ -52,8 +52,12 @@ function Handler(action, view_root, dingtalk_tokens) {
         var t = new Trello(process.AppConfig.TRELLO_API_KEY, process.AppConfig.TRELLO_API_TOKEN);
          
         t.get("/1/cards/" + card_id + "/members", function(err, members) {
-            if (err) throw err;
-            members = members.map(function(x) { return x['username']; }); 
+            if (err) {
+                //throw err; //the card may not exist yet (i.e deleted)
+              members = [];
+            } else {
+              members = members.map(function(x) { return x['username']; }); 
+            }
             deferred.resolve(members);
         });
         return deferred.promise;
