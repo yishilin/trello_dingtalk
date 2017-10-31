@@ -5,6 +5,21 @@
 
 This project tries to integrate the two: You could watch multiple Trello boards you want when you receive the Trello notification you could send it to multiple DingTalk groups as you want according to the configuration.
 
+
+
+## Screenshot
+
+![Notification Message](resources/create_change_title.png)
+
+![Notification Message](resources/due_move.png)
+
+![Notification Message](resources/owner_comments.png)
+
+![Notification Message](resources/attach_img.png)
+
+![Notification Message](resources/attach_file.png)
+
+
 ## Prerequisites
 
 Install [Docker](https://www.docker.com/) on your system.
