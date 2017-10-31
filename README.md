@@ -10,8 +10,8 @@ This project tries to integrate the two: You could watch multiple Trello boards 
 ## Screenshot
 Below are the screeshots in the DingTalk group:
 
-![](resources/trello1.png) 
-![](resources/trello2.png)  
+![](resources/trello1.png)
+![](resources/trello2.png) 
 
 ## Prerequisites
 
