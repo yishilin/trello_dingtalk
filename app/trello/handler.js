@@ -11,12 +11,12 @@ function arrayUnique(array) {
 
 
 
-function Handler(action, view_root, dingtalk_tokens) {
+function Handler(api, action, view_root, dingtalk_tokens) {
+    this.api = api;
     this.translationKey = filter(action);
     this.view_root = view_root;
     this.action = action;
     this.dingtalk_tokens = dingtalk_tokens;
-
 
     function process_msg_for_at(dingMsgJson, trelloIds, action, members) {
         let at_trellonames = get_at_trellonames_in_comments(action); 
@@ -99,10 +99,13 @@ function Handler(action, view_root, dingtalk_tokens) {
                 let action = this.action;
                 var trelloIds = process.AppConfig.TRELLOID_MAP_DINGTALKID; 
 
+                handler_placeholder = this;
                 get_card_member_phones(this.action.data.card.id).then(function (members) { 
                     process_msg_for_at(dingMsgJson, trelloIds, action, members); 
                     let send2dingtalk = require('./sender.js');
                     send2dingtalk(dingMsgJson, dingtalk_tokens);
+
+                    handler_placeholder.api.asyncsend_notification(dingMsgJson.markdown);
                 });
             }
         } else {
