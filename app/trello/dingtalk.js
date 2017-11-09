@@ -41,12 +41,6 @@ function DingtalkAPI(config) {
             userid_list = ['014216536726090327'],
             trello_agentId_in_dingtalk = '134010859'){
 
-        console.log("1===================");
-        console.log(msgcontent);
-        console.log("-------");
-        console.log(userid_list);
-        console.log("2===================");
-
         if (userid_list === undefined || userid_list.length == 0) {
             return;
         }
