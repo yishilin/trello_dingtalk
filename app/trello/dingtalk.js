@@ -12,6 +12,7 @@ function DingtalkAPI(config) {
         redirect_uri: config.DINGTALK_redirect_uri
     });
 
+
     this.getToken = function() {
         let deferred = Promise.defer();
 
@@ -34,10 +35,9 @@ function DingtalkAPI(config) {
         return deferred.promise;
     }
 
-    //const TRELLO_AgentID_IN_DINGTALK = '134010859';
-    //userid_list: dingtalk user id array
+
     this.asyncsend_notification = function( dingMsgJson, 
-            trello_agentId_in_dingtalk = '134010859'){
+            trello_agentId_in_dingtalk){
 
         let userid_list  = get_dinguserids_by(dingMsgJson.at.atMobiles);
         if (userid_list === undefined || userid_list.length == 0) {
@@ -110,6 +110,7 @@ function DingtalkAPI(config) {
         return timestamp_fmt;
     } 
 
+
     //return: ['014216536726090327'],
     function get_dinguserids_by(target_mobiles) {
         /* 
@@ -121,6 +122,7 @@ function DingtalkAPI(config) {
                 "name": x.name,
                 "userid": x.userid 
             }; }); 
+            console.log(ding_users_in_dep);
         })
         */
         

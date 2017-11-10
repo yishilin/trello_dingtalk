@@ -104,7 +104,8 @@ function Handler(action, view_root, dingtalk_tokens) {
                     send2dingtalk(dingMsgJson, dingtalk_tokens);
 
                     if (process.DingtalkAPI) {
-                        process.DingtalkAPI.asyncsend_notification(dingMsgJson);
+                        process.DingtalkAPI.asyncsend_notification(dingMsgJson, 
+                                process.AppConfig.TRELLO_AgentID_IN_DINGTALK);
                     }
                 });
             }
