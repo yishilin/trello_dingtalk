@@ -6,43 +6,88 @@
 var config = {
     TRELLO_WEBHOOK_URL: 'http://www.example.com:3030/trello_callback',
     PORT: 3000,
-    TRELLO_API_KEY: '7f4f77uuuuuuuuuuu1b7c483176b13c6',
-    TRELLO_API_TOKEN: '3dac5b4014uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuf6bd4c271a4',
-    TRELLO_CLIENT_SECRET: '8868uuuuuuuuuuuuuuuuuuuuuudc2c03675dfaca353d42ed26f8573f78580b5f',
+    TRELLO_API_KEY: '7f4f77f8xxxxxxxxxxxxxxxxxx6b13c6',
+    TRELLO_API_TOKEN: '3dac5bxxxxxxxxxxxxxxxxxx14f32e84abe2e3f133a05b059a8cbf6bd4c271a4',
+    TRELLO_CLIENT_SECRET: '88xxxxxxxxxxxxxxxxxxfcd21fdc2c03675dfaca353d42ed26f8573f78580b5f',
     MODELID_SUBSCRIPTIONS: { },
-    TRELLOID_MAP_DINGTALKID: {}
+    TRELLOID_MAP_DINGTALKID: {},
+
+    enableWorkNotifcation: true
+
 };
 process.AppConfig = config;
-var subscriptions = config.MODELID_SUBSCRIPTIONS;
-
+var subscriptions = config.MODELID_SUBSCRIPTIONS; 
 
 // maping trello user id to dingtalk user id(mobile number)
 config.TRELLOID_MAP_DINGTALKID = {
-    'nuuuuaster': "13000000821",
-    'iuuuuuct1': "13300000022", 
-    'luuuuchun': "18900000060",
-    'muuuu': "18910000003",
-    "zuuuucyf1": '15000000641',
-    'zuuuum1': '18910000004',
-    'zuuuuyfk': "18600000012",
-    'suuuu0092871':  "15000000018",
-    'kuuuug1': "18000000719", 
-    'luuuuliang9': "18600000090" 
+    'xxxxxaster': "133xxxxx821",
+    'xxxxxuct1': "1330xxxxx22",
+    'xxxxxchun': "1891xxxxx60",
+    'xxxxx': "189xxxxxx23",
+    "xxxxxcyf1": '15xxxxxx641',
+    'xxxxxm1': '1891xxxxxx4',
+    'xxxxxyfk': "186xxxxxx12",
+    'xxxxx0092871':  "158xxxxxx18",
+    'xxxxxg1': "151xxxxxx82",
+    'xxxxxliang9': "186xxxxxx90",
+    'xxxxx': "136xxxxxxx3",
+    'xxxxxh': '13xxxxxxx46',
+    'xxxxxaic': '18xxxxxxxx0'
 }
 
 
 // Trello ITWORK Board --> Dingding Project Group (or others)
-var DDGroup_Token_PROJECT = '69e658uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu3f9a79c8ef6e80b342';
-var TRELLO_BOARDID_ITWORK = '59uuuuuuuuuuuuuuuuuuuuuu';
+var DDGroup_Token_PROJECT = '69xxxxxxxxxxxxxxxxxx690874cce92b5e5ea18364c4a33f9a79c8ef6e80b342';
+var TRELLO_BOARDID_ITWORK = '59xxxxxxxxxxxxxxxxxx44bd';
 subscriptions[TRELLO_BOARDID_ITWORK] = [DDGroup_Token_PROJECT];
 
 // Trello Test Board --> Dingding Test Group (or others)
-var DDGroup_Token_TEST = '94277cuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
-var TRELLO_BOARDID_TEST = '59ba2uuuuuuuuuuuuuuuuuuu';
+var DDGroup_Token_TEST = '9xxxxxxxxxxxxxxxxxxxx1a026dfd2516de91e32185537018ec75fe5798b2169';
+var TRELLO_BOARDID_TEST = 'xxxxxxxxxxxxxxxxxxxx072e';
 subscriptions[TRELLO_BOARDID_TEST] = [DDGroup_Token_TEST]; 
 
 // Trello OPS Board --> Dingding Board Group(or others)
-var TRELLO_BOARDID_OPS = '59f170uuuuuuuuuuuuuuuuuu'; 
-var DDGroup_Token_OPS = '6f32df8uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu';
+var TRELLO_BOARDID_OPS = '5xxxxxxxxxxxxxxxxxxb807f'; 
+var DDGroup_Token_OPS = '6fxxxxxxxxxxxxxxxxxx36354838cfeb44efe04982df098cec2e4ebab83d7af2';
 subscriptions[TRELLO_BOARDID_OPS] = [DDGroup_Token_OPS]; 
 
+
+// Trello JXC Board --> Dingding Board Group(or others)
+var TRELLO_BOARDID_JXC = '5xxxxxxxxxxxxxxxxxxxx84f'; 
+var DDGroup_Token_JXC = '0exxxxxxxxxxxxxxxxxxxx8dd4b5f06f3b07b1b2e865b4334daa397f42b65cf9';
+subscriptions[TRELLO_BOARDID_JXC] = [DDGroup_Token_JXC]; 
+
+
+
+/* ********************************************
+ *
+ * start integrate Dingtalk work notification
+ *
+ * *******************************************/
+Object.extend = function(destination, source) {
+    for (var property in source) {
+        if (source.hasOwnProperty(property)) {
+            destination[property] = source[property];
+        }
+    }
+    return destination;
+};
+
+
+if (config.enableWorkNotifcation) {
+
+    let workNotificationConfig = {
+        //https://www.npmjs.com/package/dingtalk-node
+        //https://open-doc.dingtalk.com/docs/doc.htm?treeId=385&articleId=28915&docType=2
+        DINGTALK_CorpID: 'dingxxxxxxxxxxxxxxxxxxxxxxxxxxb6378f',
+        DINGTALK_CorpSecret: "xxxxxxxxxxxxxxxxxxxxxxxxxxrA3ZLCF8HOM7hhaN4dihAbDz-irBKcsQTw3OGx",
+        DINGTALK_redirect_uri: "",
+        TRELLO_AgentID_IN_DINGTALK: 'xxxxxx859'
+    };
+
+    Object.extend(process.AppConfig, workNotificationConfig); 
+
+
+    var DingtalkAPI = require('../trello/dingtalk.js'); 
+    process.DingtalkAPI = new DingtalkAPI(process.AppConfig);
+}
