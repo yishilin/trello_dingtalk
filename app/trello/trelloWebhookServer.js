@@ -3,7 +3,6 @@ var http = require('http');
 var util = require('util');
 var logger = require("./log.js")
 var Handler = require('./handler.js'); 
-var DingtalkAPI = require('./dingtalk.js'); 
 
 function TrelloWebhookServer () {
     this.init = function (){
@@ -12,14 +11,13 @@ function TrelloWebhookServer () {
             process.AppConfig.PROJECT_ROOT = process.cwd() + "/";
             return this;
         } catch (e) {
+           console.log(e);
            console.log("ERROR, the server could not start, please copy the config.example.js to config.js and set it correctly. more information please see the README.MD file.")
            process.exit(1);
         }
     };
 
     this.start_http_server = function () {
-        let api = new DingtalkAPI(process.AppConfig);
-        
         logger.info("TrelloWebhookServer started!");
         const httpServer = http.createServer();
         const TrelloWebhookServer = require('@18f/trello-webhook-server');
@@ -42,7 +40,7 @@ function TrelloWebhookServer () {
                 trelloWHServer.start(trello_model_id).then(webhookID => {
                     trelloWHServer.on('data', event => {
                          //dump(event.action); 
-                        let handler = new Handler(api, event.action, process.AppConfig.PROJECT_ROOT + "app/views/", 
+                        let handler = new Handler(event.action, process.AppConfig.PROJECT_ROOT + "app/views/", 
                             process.AppConfig.MODELID_SUBSCRIPTIONS[trello_model_id]); 
                         handler.handle();
                     });
