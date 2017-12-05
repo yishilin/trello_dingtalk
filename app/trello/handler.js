@@ -130,8 +130,8 @@ function Handler(action, view_root, dingtalk_tokens) {
         .replace(/[\"]/g, '\\\"')
         .replace(/[\b]/g, '\\b')
         .replace(/[\f]/g, '\\f')
-        .replace(/[\n]/g, '\\n')
-        .replace(/[\r]/g, '\\r')
+        .replace(/[\n]/g, '\\n> ')
+        .replace(/[\r]/g, '\\r> ')
         .replace(/[\t]/g, '\\t');
     };
 
