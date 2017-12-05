@@ -51,13 +51,17 @@ let action = {
     }
 };
 
+
+
 module.exports = {
     "msgtype": "markdown",
     "markdown": {
         "title": "{{action.memberCreator.fullName}} 修改卡片描述内容",
         "text": "#### {{action.memberCreator.fullName}} ({{action.memberCreator.username}}) 修改了 [#{{action.data.card.idShort}} {{action.data.card.name}}](https://trello.com/c/{{action.data.card.shortLink}}) 卡片描述内容:\n" + 
-            "> 原内容：{{action.data.old.desc}}\n\n" + 
-            "> 新内容：{{action.data.card.desc}}\n\n" + 
+            "原内容>>>>>>：\n" + 
+            "> {{action.data.old.desc}}\n\n" + 
+            "新内容<<<<<<：\n" + 
+            "> {{action.data.card.desc}}\n\n" + 
             "> ###### {{action.date}} \n"
     },
     "at": {
