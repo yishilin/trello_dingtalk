@@ -1,3 +1,21 @@
+String.prototype.cnLen = function() {
+    return this.replace(/[^\x00-\xff]/g, "rr").length;
+}
+
+String.prototype.cnSub = function(n) {
+    var r = /[^\x00-\xff]/g;
+    if (this.replace(r, "mm").length <= n) return this;
+    // n = n - 3;    
+    var m = Math.floor(n / 2);
+    for (var i = m; i < this.length; i++) {
+        if (this.substr(0, i).replace(r, "mm").length >= n) {
+            return this.substr(0, i);
+        }
+    }
+    return this;
+};
+
+
 function arrayUnique(array) {
     var a = array.concat();
     for(var i=0; i<a.length; ++i) {
@@ -142,6 +160,13 @@ function Handler(action, view_root, dingtalk_tokens) {
         action.date = (new Date(d.toISOString())).toLocaleString();
 
         switch (action.display.translationKey) {
+            case 'action_changed_description_of_card':
+                if(action.data.old.desc.cnLen() > 400) {
+                    action.data.old.desc = action.data.old.desc.cnSub(400) + 
+                        "\n\n......\n\n......(省略)\n\n";
+                }
+                break;
+
             case 'action_added_a_due_date':
                 d = new Date(action.data.card.due);
                 action.data.card.due = d.toISOString().slice(0,10);
