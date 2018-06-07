@@ -1,11 +1,16 @@
 # Integrate DingTalk with Trello
 
-* Trello (https://trello.com) is a great task management online tool. 
+* Trello (https://trello.com) is a great online task management tool. 
 * DingTalk (https://www.dingtalk.com/) is a great enterprise IM platform which could have Talkbot(or Chatbot as you like) integrated.
 
-This project tries to integrate the two: You could watch multiple Trello boards you want when you receive the Trello notification you could send it to multiple DingTalk groups as you want according to the configuration.
+### Highlight 1:
+This project tries to integrate these two tools: 
+1) watch multiple Trello boards, 
+2) dispatch the Trello notification of these boards to multiple DingTalk groups according to the configuration.
+3) the Dingtalk message will "@" all the card members in Dingtalk, it is useful for the communication in the team.
 
-
+### Highlight 2:
+trello_dingtalk is designed for extension to support more Trello message type
 
 ## Screenshot
 Below are the screeshots in the DingTalk group:
@@ -34,7 +39,7 @@ see steps in https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&articleId=105
 First please copy the `config.example.js` to `config.js`, then set up the configuration content correctly:
 
 - TRELLO_WEBHOOK_URL: Trello will post notification data to this URL, for instance, http://www.example.com/your_trello_callback_url, the request will hit your server
-- PORT: Webhook server will listen on this port, request of TRELLO_WEBHOOK_URL will hit this port (there could be NAT port mapping between them)
+- PORT: Webhook server will listen on this port, the request of TRELLO_WEBHOOK_URL will hit this port (there could be NAT port mapping between them)
 - TRELLO_API_KEY: <trello API key>, see https://help.datadoghq.com/hc/en-us/articles/115002882826-Use-our-Webhook-Integration-to-create-a-trello-card
 - TRELLO_API_TOKEN: <trello API token>
 - TRELLO_CLIENT_SECRET: <trello client secret>
