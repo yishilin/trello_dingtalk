@@ -11,12 +11,12 @@ DingTalk has [an official trello bot](https://open-doc.dingtalk.com/docs/doc.htm
 3. This project is open source.
 
 ### Highlight 2:
-1. watch multiple Trello boards, 
-2. dispatch the Trello notification of these boards to multiple DingTalk groups according to the configuration.
-3. the DingTalk message will "@" all the card members in DingTalk, it is useful for the communication in the team. (You need map the Trello UserID with DingTalk UserID first in the configuration)
+1. watch multiple Trello boards，(**VS: you could watch only one Trello board in official bot.**)
+2. dispatch the Trello notification of these boards to multiple DingTalk groups according to the configuration.(**VS: you could send to only one DingTalk group in official bot.**)
+3. the DingTalk message will "@" all the card members in DingTalk, it is useful for the communication in the team. You need map the Trello UserID with DingTalk UserID first in the configuration. (**VS: you could not do it in official bot.**)
 
 ### Highlight 3:
-trello_dingtalk is designed for extension to support more Trello message type
+trello_dingtalk is designed for extension to support more Trello message type (**VS: you could not do it in the official bot**)
 
 ## Screenshot
 Below are the screeshots in the DingTalk group:
