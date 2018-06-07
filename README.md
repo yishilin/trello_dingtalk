@@ -3,13 +3,19 @@
 * Trello (https://trello.com) is a great online task management tool. 
 * DingTalk (https://www.dingtalk.com/) is a great enterprise IM platform which could have Talkbot(or Chatbot as you like) integrated.
 
+DingTalk has [an official trello bot](https://open-doc.dingtalk.com/docs/doc.htm?treeId=257&articleId=106436&docType=1) to integrate these two tools, but this project is trying to do much more:
+
 ### Highlight 1:
-This project tries to integrate these two tools: 
-1) watch multiple Trello boards, 
-2) dispatch the Trello notification of these boards to multiple DingTalk groups according to the configuration.
-3) the Dingtalk message will "@" all the card members in Dingtalk, it is useful for the communication in the team.
+1. This project is used in my team before the official trello bot could work,  
+2. the official bot is not stable for a long time, see https://bbs.aliyun.com/read/308246.html 
+3. This project is open source.
 
 ### Highlight 2:
+1. watch multiple Trello boards, 
+2. dispatch the Trello notification of these boards to multiple DingTalk groups according to the configuration.
+3. the DingTalk message will "@" all the card members in DingTalk, it is useful for the communication in the team. (You need map the Trello UserID with DingTalk UserID first in the configuration)
+
+### Highlight 3:
 trello_dingtalk is designed for extension to support more Trello message type
 
 ## Screenshot
@@ -43,7 +49,7 @@ First please copy the `config.example.js` to `config.js`, then set up the config
 - TRELLO_API_KEY: <trello API key>, see https://help.datadoghq.com/hc/en-us/articles/115002882826-Use-our-Webhook-Integration-to-create-a-trello-card
 - TRELLO_API_TOKEN: <trello API token>
 - TRELLO_CLIENT_SECRET: <trello client secret>
-- MODELID_SUBSCRIPTIONS: a Hash object, the key is the <trello board ID which you want to watch>, the value is an array of Dingtalk group tokens, with the token you could send the message to the Dingtalk group.
+- MODELID_SUBSCRIPTIONS: a Hash object, the key is the <trello board ID which you want to watch>, the value is an array of DingTalk group tokens, with the token you could send the message to the DingTalk group.
 
 In the `config.example.js`, you have two Trello boards which you want to watch, and you have two DingTalk groups you want to receive the notifications of the two boards in Trello.
 
