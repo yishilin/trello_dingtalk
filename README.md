@@ -8,7 +8,8 @@ DingTalk has [an official trello bot](https://open-doc.dingtalk.com/docs/doc.htm
 ### Highlight 1:
 1. This project is used in my team before the official trello bot could work,  
 2. the official bot is not stable for a long time, see https://bbs.aliyun.com/read/308246.html 
-3. This project is open source.
+3. This project is open source, already run in production over 2 years without any issue.
+
 
 ### Highlight 2:
 1. watch multiple Trello boards，(**VS: you could watch only one Trello board in official bot.**)
